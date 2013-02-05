@@ -75,6 +75,20 @@ LList* llist_append( LList* lst, int data )
     return lst;
 }
 
+LList* llist_append( LList* lst, int data, Node* end )
+{   
+    Node* current;
+    current = lst->head;
+    if(current != NULL) {
+        while(current->next != NULL) {
+            current = current->next; }
+        current->next = node_new( data, NULL ); }
+    else lst->head = node_new( data, NULL );
+    return lst;
+
+    end->next = node_new(data, NULL);
+
+}
 
 LList* llist_prepend( LList* lst, int data )
 {
@@ -98,6 +112,8 @@ LList* llist_insert( LList* lst, int idx, int data )
         current->next = node_new( data, current->next ); }
     return lst;
 }
+
+
 
 
 LList* llist_remove_last( LList* lst )
