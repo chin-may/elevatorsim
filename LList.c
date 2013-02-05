@@ -45,11 +45,11 @@ void llist_print( LList* lst )
     while(current != NULL ) {
         printf("%d ",current->data);
         current = current->next; }
-    
+
 }
-        
-        
-        
+
+
+
 int llist_get( LList* lst, int idx )
 {
     int i = 0;
@@ -60,9 +60,9 @@ int llist_get( LList* lst, int idx )
         current = current->next;  }
     return current->data;
 }        
-        
-        
-        
+
+
+
 LList* llist_append( LList* lst, int data )
 {   
     Node* current;
@@ -97,9 +97,6 @@ LList* llist_insert( LList* lst, int idx, int data )
             i++; }
         current->next = node_new( data, current->next ); }
     return lst;
-
-
-
 }
 
 
@@ -125,7 +122,7 @@ LList* llist_remove_first( LList* lst )
     free(temp);
     return lst;
 }
-    
+
 
 LList* llist_remove( LList* lst, int idx )
 {
@@ -139,5 +136,5 @@ LList* llist_remove( LList* lst, int idx )
     current->next = temp->next;
     free(temp);
     return lst;
-    
+
 }        
