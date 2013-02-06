@@ -33,7 +33,6 @@ void queue_enque(Queue* q, Person* data){
 
 Person* queue_deque(Queue* q){
     if(q->head == NULL){
-        perror("Empty queue");
         return NULL;
     }
     else{
