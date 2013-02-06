@@ -8,3 +8,4 @@ struct elevator_{
     Person* passengers[ELEVATOR_CAP];
     int pnum;
 }
+#endif
