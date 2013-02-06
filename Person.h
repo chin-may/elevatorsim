@@ -5,6 +5,7 @@ typedef struct Person_ Person;
 
 struct Person_{
     int id;
+    int dest;
 };
 
 Person* person_new(int id);
