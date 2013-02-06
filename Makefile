@@ -7,25 +7,25 @@ LDFLAGS = -lm
 
 all: main
 
-main: main.o LList.o
+main: main.o queue.o Person.o
 	gcc $(LDFLAGS) $^ -o $@
 
-main.o: main.c LList.h
+main.o: main.c queue.h Person.h
 	gcc -c $(CFLAGS) $< -o $@
 
-LList.o: LList.c LList.h
+queue.o: queue.c queue.h Person.h
 	gcc -c $(CFLAGS) $< -o $@
 
-.PHONY: clean lint test
+Person.o: Person.c Person.h
+	gcc -c $(CFLAGS) $< -o $@
+
+.PHONY: clean lint
 
 clean:
 	rm -rf *.o
 	rm -rf main
-	rm -rf tests/*_
 
 lint:
 	for f in *.c; do echo $$f; splint -standard $$f; done;
 
-test: all
-	$(SH) tests/run_tests.sh
 
