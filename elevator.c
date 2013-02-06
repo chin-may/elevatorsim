@@ -30,7 +30,7 @@ void elevator_move(elevator* e){
 
 void elevator_pause(elevator* e, int time){
     e->delay = time;
-    int i;
+    //int i;
     //e->dest[e->location]  = 0;
 }
 
