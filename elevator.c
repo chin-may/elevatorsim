@@ -11,6 +11,7 @@ elevator* elevator_new(){
     ret->pnum = 0;
     ret->location = 0;
     ret->delay = 0;
+    ret->delay_done = 0;
     for(i = 0; i< FLOORNUM; i++){
         ret->dest[i] = 0;
     }
@@ -20,6 +21,9 @@ elevator* elevator_new(){
 void elevator_move(elevator* e){
     if(e->delay){
         e->delay--;
+        if(e->delay == 0){
+            e->delay_done = 0;
+        }
     }
     else{
         e->location += e->moving;
@@ -30,6 +34,7 @@ void elevator_move(elevator* e){
 
 void elevator_pause(elevator* e, int time){
     e->delay = time;
+    e->delay_done = 1;
     //int i;
     //e->dest[e->location]  = 0;
 }
@@ -116,4 +121,8 @@ Queue* elevator_leave(elevator* e){
         }
     }
     return q;
+}
+
+int elevator_atdest(elevator* e){
+    return e->dest[e->location];
 }
