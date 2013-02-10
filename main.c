@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "queue.h"
 #include "Person.h"
 #include "floor.h"
@@ -23,7 +24,7 @@ int main(){
     for(i = 0; i < ELEVATORNUM; i++){
         elev[i] = elevator_new();
     }
-    //srand(time(NULL));
+    srand(time(NULL));
 
     while(1){
         currid = add_new_entrants(level[0], currid);
@@ -41,7 +42,10 @@ int main(){
                 Person* p;
                 Queue* q;
                 q = elevator_leave(e);
-                update_floor( currentfloor, q );
+                //At ground floor people just leave building
+                if(e->location > 0){
+                    update_floor( currentfloor, q );
+                }
                 //If elevator has further destinations in same direction, only
                 //those passengers can enter
                 if(elevator_hasfurther(e)){
@@ -104,7 +108,8 @@ int main(){
             }
         }
         showstate(level, elev);
-        getc(stdin);
+        //getc(stdin);
+        sleep(1);
         printf("----------------------------------------------------------------------\n");
     }
     return 0;
@@ -151,8 +156,13 @@ void update_queues(floor* f, int fnum){
 
 void update_floor(floor* f, Queue* q){
     Person* p = 0;
+    int success;
     while(p = queue_deque(q)){
-        floor_enter(f, p);
+        success = floor_enter(f, p);
+        if(!success){
+            p->dest = 0;
+            queue_enque(f->down, p);
+        }
     }
 }
 
