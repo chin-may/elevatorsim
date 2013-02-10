@@ -25,14 +25,29 @@ int main(){
         currid = add_new_entrants(level[0], currid);
         for(i = 1; i < FLOORNUM; i++){
             update_queues(level[i], i);
+            //TODO Add external task
         }
         for(i = 0; i < ELEVATORNUM; i++){
-            elevator_move(elev[i]);
-            if(elevator_atdest(elev[i]) && ! elev[i]->delay_done){
+            elevator* e = elev[i];
+            floor* currentfloor = level[ e->location/2 ];
+            elevator_move(e);
+            if(elevator_atdest(e) && ! e->delay_done){ //TODO Check if SHOULD PAUSE
                 elevator_pause(random() % (MAX_WAIT - 2) + 2);
                 Person* p;
                 Queue* q;
-                if(elev[i]->moving > 0){
+                q = elevator_leave(e);
+                update_floor( currentfloor );
+                if(e->moving > 0){
+                    while(e->pnum < ELEVATOR_CAP && currentfloor->up->length > 0){
+                        p = queue_deque(currentfloor->up);
+                        elevator_enter(e, p);
+                    }
+                }
+                else if(e->moving < 0){
+                    while(e->pnum < ELEVATOR_CAP && currentfloor->down->length > 0){
+                        p = queue_deque(currentfloor->down);
+                        elevator_enter(e, p);
+                    }
 
                 }
             }
