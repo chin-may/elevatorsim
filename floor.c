@@ -14,10 +14,9 @@ floor* floor_new(int num){
     return ret;
 }
 
-void floor_enter(floor* f, Person* p){
+int floor_enter(floor* f, Person* p){
     if(f->memnum == FLOOR_CAP){
-        perror("Floor full");
-        exit(1);
+        return 0;
     }
     int i = 0;
     while(f->members[i] != NULL){
@@ -25,7 +24,7 @@ void floor_enter(floor* f, Person* p){
     }
     f->members[i] = p;
     f->memnum++;
-
+    return 1;
 }
 
 void floor_print(floor* f){

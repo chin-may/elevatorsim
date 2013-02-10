@@ -4,7 +4,7 @@
 #ifndef FLOOR_H
 #define FLOOR_H
 
-#define FLOOR_CAP 20
+#define FLOOR_CAP 200
 
 typedef struct floor_ floor;
 struct floor_{
@@ -16,6 +16,6 @@ struct floor_{
 
 floor* floor_new();
 void floor_print();
-void floor_enter(floor* f, Person* p);
+int floor_enter(floor* f, Person* p);
 
 #endif
