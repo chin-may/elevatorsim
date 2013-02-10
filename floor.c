@@ -38,14 +38,14 @@ void floor_print(floor* f){
     }
     printf("\nUp Queue:\n");
     Node* n;
+    n = f->up->head;
     for(i = 0; i < f->up->length; i++){
-        n = f->up->head;
         printf("p%d dest %d, ", n->data->id, n->data->dest);
         n = n->next;
     }
     printf("\nDown Queue:\n");
+    n = f->down->head;
     for(i = 0; i < f->down->length; i++){
-        n = f->down->head;
         printf("p%d dest %d, ", n->data->id, n->data->dest);
         n = n->next;
     }
