@@ -1,9 +1,10 @@
 #include <stdio.h>
-#include <stlib.h>
+#include <stdlib.h>
 #include "queue.h"
 #include "Person.h"
 #include "floor.h"
 #include "consts.h"
+#include "elevator.h"
 
 
 int main(){
@@ -25,36 +26,82 @@ int main(){
         currid = add_new_entrants(level[0], currid);
         for(i = 1; i < FLOORNUM; i++){
             update_queues(level[i], i);
-            //TODO Add external task
+            set_external_tasks(level[i], elev);
         }
         for(i = 0; i < ELEVATORNUM; i++){
             elevator* e = elev[i];
-            floor* currentfloor = level[ e->location/2 ];
+            floor* currentfloor = level[ e->location ];
             elevator_move(e);
-            if(elevator_atdest(e)){ //TODO Check if SHOULD PAUSE
+            if(e->moving != 0 && elevator_atdest(e)){ 
                 elevator_pause(random() % (MAX_WAIT - 2) + 2);
-                //TODO Clear target
+                // Clear target
+                e->dest[i] = 0;
+                e->ext_dest[i] = 0;
                 Person* p;
                 Queue* q;
                 q = elevator_leave(e);
                 update_floor( currentfloor );
-                if(e->moving > 0){
+                //If elevator has further destinations in same direction, only
+                //those passengers can enter
+                if(elevator_hasfurther(e)){
+                    if(e->moving > 0){
+                        while(e->pnum < ELEVATOR_CAP && currentfloor->up->length > 0){
+                            p = queue_deque(currentfloor->up);
+                            elevator_enter(e, p);
+                        }
+                    }
+                    else if(e->moving < 0){
+                        while(e->pnum < ELEVATOR_CAP && currentfloor->down->length > 0){
+                            p = queue_deque(currentfloor->down);
+                            elevator_enter(e, p);
+                        }
+                    }
+                    elevator_setdest(e);
+                }
+                //If no further targets, longer q gets preference
+                else{
+                    if(currentfloor->up->length == 0 && currentfloor->down->length == 0){
+                        e->moving = 0;
+                    }
+                    else if(currentfloor->up->length > currentfloor->down->length){
+                        while(e->pnum < ELEVATOR_CAP && currentfloor->up->length > 0){
+                            p = queue_deque(currentfloor->up);
+                            elevator_enter(e, p);
+                        }
+                        e->moving = 1;
+                    }
+                    else {
+                        while(e->pnum < ELEVATOR_CAP && currentfloor->down->length > 0){
+                            p = queue_deque(currentfloor->down);
+                            elevator_enter(e, p);
+                        }
+                        e->moving = -1;
+                    }
+                    elevator_setdest(e);
+                }
+            }
+            if(e->moving == 0){
+                if(currentfloor->up->length == 0 && currentfloor->down->length == 0){
+                    e->moving = 0;
+                }
+                else if(currentfloor->up->length > currentfloor->down->length){
                     while(e->pnum < ELEVATOR_CAP && currentfloor->up->length > 0){
                         p = queue_deque(currentfloor->up);
                         elevator_enter(e, p);
                     }
+                    e->moving = 1;
                 }
-                else if(e->moving < 0){
+                else {
                     while(e->pnum < ELEVATOR_CAP && currentfloor->down->length > 0){
                         p = queue_deque(currentfloor->down);
                         elevator_enter(e, p);
                     }
-
+                    e->moving = -1;
                 }
+                elevator_setdest(e);
             }
         }
     }
-
     return 0;
 }
 
@@ -109,6 +156,20 @@ void showstate(floor* level, elevator* el){
     for(i = 0; i< FLOORNUM; i++){
 
     }
+}
 
-
+void set_external_tasks(floor* f, elev* elev[], int fnum){
+    if(f->up->length > 0 || f->down->length > 0){
+        int already_set = 0;
+        int i;
+        for(i = 0; i < ELEVATORNUM; i++){
+            if(elevator_hasdest(e,fnum) ){
+                already_set = 1;
+            }
+        }
+        if(!already_set){
+            int choice = random() % ELEVATORNUM;
+            elev[choice]->ext_dest[fnum] = 1;
+        }
+    }
 }
