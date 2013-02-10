@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "floor.h"
 
 floor* floor_new(int num){
@@ -43,7 +44,6 @@ void floor_print(floor* f){
         n = n->next;
     }
     printf("\nDown Queue:\n");
-    Node* n;
     for(i = 0; i < f->down->length; i++){
         n = f->down->head;
         printf("p%d dest %d, ", n->data->id, n->data->dest);

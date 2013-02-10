@@ -7,7 +7,7 @@
 #include "elevator.h"
 
 void set_external_tasks(floor* f, elevator* elev[], int fnum);
-void showstate(floor* level, elevator* el);
+void showstate(floor* level[], elevator* el[]);
 void update_floor(floor* f, Queue* q);
 void update_queues(floor* f, int fnum);
 int add_new_entrants(floor* gr, int currid);

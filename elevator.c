@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "elevator.h"
 #include "consts.h"
 #include "queue.h"
