@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "floor.h"
 
-floor floor_new(int num){
+floor* floor_new(int num){
     floor *ret = malloc(sizeof(floor));
     ret->up = queue_new();
     ret->down = queue_new();
@@ -10,6 +10,7 @@ floor floor_new(int num){
     for(i = 0; i < FLOOR_CAP; i++){
         ret->members[i] = NULL;
     }
+    return ret;
 }
 
 void floor_enter(floor* f, Person* p){
