@@ -31,8 +31,9 @@ int main(){
             elevator* e = elev[i];
             floor* currentfloor = level[ e->location/2 ];
             elevator_move(e);
-            if(elevator_atdest(e) && ! e->delay_done){ //TODO Check if SHOULD PAUSE
+            if(elevator_atdest(e)){ //TODO Check if SHOULD PAUSE
                 elevator_pause(random() % (MAX_WAIT - 2) + 2);
+                //TODO Clear target
                 Person* p;
                 Queue* q;
                 q = elevator_leave(e);
@@ -99,15 +100,7 @@ void update_queues(floor* f, int fnum){
 void update_floor(floor* f, Queue* q){
     Person* p = 0;
     while(p = queue_deque(q)){
-        int i;
-        while((floor->members[i] != 0) && (i<FLOOR_CAP)){
-            i++;
-        }
-        if(i == FLOOR_CAP) {
-            perror("Floor %d full", i);
-            exit(1);
-        }
-        floor->members[i] = p;
+        floor_enter(f, p);
     }
 }
 
