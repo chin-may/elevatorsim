@@ -154,7 +154,7 @@ int elevator_hasfurther(elevator* e){
 }
 
 void elevator_print(elevator* e){
-    printf("Elevator loc:%d\n", e->location);
+    printf("\nElevator loc:%d\n", e->location);
     if(e->delay > 0){
         printf("Delay: %d\n", e->delay);
     }
@@ -164,5 +164,11 @@ void elevator_print(elevator* e){
             printf("p%d dest: %d,", e->passengers[i]->id, e->passengers[i]->dest);
         }
     }
-    printf("\n");
+    printf("\nTasks:\n");
+    for(i = 0; i < FLOORNUM; i++){
+        if(elevator_hasdest(e, i)){
+            printf("%d, ",i);
+        }
+    }
+    printf("\nMoving %d\n", e->moving);
 }
