@@ -1,4 +1,6 @@
 #include "consts.h"
+#include "Person.h"
+#include "queue.h"
 #ifndef ELEVATOR_H
 
 #define ELEVATOR_H

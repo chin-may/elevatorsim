@@ -6,6 +6,11 @@
 #include "consts.h"
 #include "elevator.h"
 
+void set_external_tasks(floor* f, elevator* elev[], int fnum);
+void showstate(floor* level, elevator* el);
+void update_floor(floor* f, Queue* q);
+void update_queues(floor* f, int fnum);
+int add_new_entrants(floor* gr, int currid);
 
 int main(){
     floor* level[FLOORNUM];
@@ -20,27 +25,25 @@ int main(){
     }
     srand(time(NULL));
 
-    int i;
-    int currid = 1;
     while(1){
         currid = add_new_entrants(level[0], currid);
         for(i = 1; i < FLOORNUM; i++){
             update_queues(level[i], i);
-            set_external_tasks(level[i], elev);
+            set_external_tasks(level[i], elev,i);
         }
         for(i = 0; i < ELEVATORNUM; i++){
             elevator* e = elev[i];
             floor* currentfloor = level[ e->location ];
             elevator_move(e);
             if(e->moving != 0 && elevator_atdest(e)){ 
-                elevator_pause(random() % (MAX_WAIT - 2) + 2);
+                elevator_pause(e,random() % (MAX_WAIT - 2) + 2);
                 // Clear target
                 e->dest[i] = 0;
                 e->ext_dest[i] = 0;
                 Person* p;
                 Queue* q;
                 q = elevator_leave(e);
-                update_floor( currentfloor );
+                update_floor( currentfloor, q );
                 //If elevator has further destinations in same direction, only
                 //those passengers can enter
                 if(elevator_hasfurther(e)){
@@ -81,6 +84,7 @@ int main(){
                 }
             }
             if(e->moving == 0){
+                Person* p;
                 if(currentfloor->up->length == 0 && currentfloor->down->length == 0){
                     e->moving = 0;
                 }
@@ -109,11 +113,11 @@ int main(){
 int add_new_entrants(floor* gr, int currid){
     int num = rand()%(MAX_ENT + 1);
     int i;
-    Person* p
+    Person* p;
     for(i = 0; i < num; i++){
         p = person_new(++currid);
         p->dest = random()%(FLOORNUM - 1) + 1;
-        queue_enque(f->up, p);
+        queue_enque(gr->up, p);
     }
     return currid;
 }
@@ -158,12 +162,12 @@ void showstate(floor* level, elevator* el){
     }
 }
 
-void set_external_tasks(floor* f, elev* elev[], int fnum){
+void set_external_tasks(floor* f, elevator* elev[], int fnum){
     if(f->up->length > 0 || f->down->length > 0){
         int already_set = 0;
         int i;
         for(i = 0; i < ELEVATORNUM; i++){
-            if(elevator_hasdest(e,fnum) ){
+            if(elevator_hasdest(elev[i],fnum) ){
                 already_set = 1;
             }
         }

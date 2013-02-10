@@ -1,6 +1,8 @@
+#include <stdlib.h>
 #include "elevator.h"
 #include "consts.h"
 #include "queue.h"
+#include "Person.h"
 
 elevator* elevator_new(){
     elevator* ret = malloc(sizeof(elevator));
@@ -60,18 +62,18 @@ void elevator_setdir(elevator* e){
         }
     }
     if(e->moving == 0){
-        if(has_up) moving = 1;
-        else if(has_down) moving = -1;
+        if(has_up) e->moving = 1;
+        else if(has_down) e->moving = -1;
     }
     else if(e->moving == 1){
-        if(has_up) moving = 1;
-        else if(has_down) moving = -1;
-        else moving = 0;
+        if(has_up) e->moving = 1;
+        else if(has_down) e->moving = -1;
+        else e->moving = 0;
     }
     else{
-        if(has_down) moving = -1;
-        else if(has_up) moving = 1;
-        else moving = 0;
+        if(has_down) e->moving = -1;
+        else if(has_up) e->moving = 1;
+        else e->moving = 0;
     }
 }
 
@@ -96,7 +98,7 @@ void elevator_enter(elevator* e, Person* p){
     }
     int i = 0;
     while(e->passengers[i] != NULL){
-        i++
+        i++;
     }
     e->passengers[i] = p;
     e->pnum++;
