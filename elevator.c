@@ -38,7 +38,7 @@ void elevator_pause(elevator* e, int time){
 int elevator_isfree(elevator* e){
     int i;
     for(i = 0; i < FLOORNUM; i++){
-        if(dest[i] != 0){
+        if(elevator_hasdest(e,i) != 0){
             return 0;
         }
     }
@@ -121,4 +121,31 @@ Queue* elevator_leave(elevator* e){
 
 int elevator_atdest(elevator* e){
     return e->dest[e->location];
+}
+
+int elevator_hasdest(elevator* e, int d){
+    if(d>= 0 && d< FLOORNUM)
+        return e->dest[d] || e->ext_dest[d];
+}
+
+int elevator_hasfurther(elevator* e){
+    int ret = 0;
+    int i;
+    if(e->moving > 0){
+        i = e->location + 1;
+        while(i < FLOORNUM){
+            if(elevator_hasdest(e,i)) return 1;
+            i++;
+        }
+        return 0;
+    }
+    else if(e->moving < 0){
+        i = e->location - 1;
+        while(i >= 0){
+            if(elevator_hasdest(e,i)) return 1;
+            i--;
+        }
+        return 0;
+    }
+    return 0;
 }
