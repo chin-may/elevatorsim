@@ -19,7 +19,7 @@ queue.o: queue.c queue.h Person.h
 elevator.o: elevator.c elevator.h consts.h queue.h Person.h
 	gcc -c $(CFLAGS) $< -o $@
 
-floor.o: floor.c floor.h queue.h
+floor.o: floor.c floor.h queue.h Person.h
 	gcc -c $(CFLAGS) $< -o $@
 
 Person.o: Person.c Person.h
