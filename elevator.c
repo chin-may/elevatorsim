@@ -34,8 +34,9 @@ void elevator_move(elevator* e){
 
 void elevator_pause(elevator* e, int time){
     e->delay = time;
+    e->dest[e->location] = 0;
+    e->ext_dest[e->location] = 0;
     //int i;
-    //e->dest[e->location]  = 0;
 }
 
 int elevator_isfree(elevator* e){
@@ -75,6 +76,35 @@ void elevator_setdir(elevator* e){
         if(has_down) e->moving = -1;
         else if(has_up) e->moving = 1;
         else e->moving = 0;
+    }
+}
+
+
+void elevator_setdir_ext(elevator* e){
+    int i;
+    int has_up = 0, has_down = 0;
+    i = e->location + 1;
+    while(i < FLOORNUM){
+        if(e->ext_dest[i]){
+            has_up = 1;
+        }
+        i++;
+    }
+    i = e->location - 1;
+    while(i >= 0){
+        if(e->ext_dest[i]){
+            has_down = 1;
+        }
+        i--;
+    }
+    if(has_down){
+        e->moving = -1;
+    }
+    else if(has_up){
+        e->moving = 1;
+    }
+    else {
+        e->moving = 0;
     }
 }
 
@@ -123,7 +153,7 @@ Queue* elevator_leave(elevator* e){
 }
 
 int elevator_atdest(elevator* e){
-    return e->dest[e->location];
+    return elevator_hasdest(e, e->location);
 }
 
 int elevator_hasdest(elevator* e, int d){
@@ -154,7 +184,7 @@ int elevator_hasfurther(elevator* e){
 }
 
 void elevator_print(elevator* e){
-    printf("\nElevator loc:%d\n", e->location);
+    printf("Elevator loc:%d\n", e->location);
     if(e->delay > 0){
         printf("Delay: %d\n", e->delay);
     }
