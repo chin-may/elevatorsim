@@ -13,6 +13,6 @@ struct floor_{
     int memnum;
 };
 
-floor floor_new();
+floor* floor_new();
 
 #endif
