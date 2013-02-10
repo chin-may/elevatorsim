@@ -1,4 +1,5 @@
 #include "queue.h"
+#include "Person.h"
 
 #ifndef FLOOR_H
 #define FLOOR_H
@@ -14,5 +15,7 @@ struct floor_{
 };
 
 floor* floor_new();
+void floor_print();
+void floor_enter(floor* f, Person* p);
 
 #endif

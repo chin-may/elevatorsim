@@ -151,3 +151,17 @@ int elevator_hasfurther(elevator* e){
     }
     return 0;
 }
+
+void elevator_print(elevator* e){
+    printf("Elevator loc:%d\n", e->location);
+    if(e->delay > 0){
+        printf("Delay: %d\n", e->delay);
+    }
+    int i;
+    for(i = 0; i < ELEVATOR_CAP; i++){
+        if(e->passengers[i]!=NULL){
+            printf("p%d dest: %d,", e->passengers[i]->id, e->passengers[i]->dest);
+        }
+    }
+    printf("\n");
+}

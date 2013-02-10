@@ -39,4 +39,6 @@ Queue* elevator_leave(elevator* e);
 
 //Checks if e has any further targets in the same direction as it is moving
 int elevator_hasfurther(elevator* e);
+
+void elevator_print(elevator* e);
 #endif
