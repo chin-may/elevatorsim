@@ -105,6 +105,7 @@ int main(){
                 elevator_setdest(e);
             }
         }
+        showstate(level, elev);
     }
     return 0;
 }
@@ -155,10 +156,13 @@ void update_floor(floor* f, Queue* q){
     }
 }
 
-void showstate(floor* level, elevator* el){
+void showstate(floor* level[], elevator* el[]){
     int i;
     for(i = 0; i< FLOORNUM; i++){
-
+        floor_print(level[i]);
+    }
+    for(i = 0; i < ELEVATORNUM; i++){
+        elevator_print(el[i]);
     }
 }
 
