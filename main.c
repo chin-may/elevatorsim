@@ -27,7 +27,7 @@ int main(){
 
     while(1){
         currid = add_new_entrants(level[0], currid);
-        set_external_tasks(level[0], elev,i);
+        set_external_tasks(level[0], elev,0);
         for(i = 1; i < FLOORNUM; i++){
             update_queues(level[i], i);
             set_external_tasks(level[i], elev,i);
