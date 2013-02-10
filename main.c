@@ -37,10 +37,7 @@ int main(){
             elevator_move(e);
             floor* currentfloor = level[ e->location ];
             if(e->moving != 0 && elevator_atdest(e)){ 
-                elevator_pause(e,random() % (MAX_WAIT - 2) + 2);
-                // Clear target
-                e->dest[i] = 0;
-                e->ext_dest[i] = 0;
+                elevator_pause(e,random() % (MAX_WAIT - 2) + 2); //Also clears target
                 Person* p;
                 Queue* q;
                 q = elevator_leave(e);
@@ -65,7 +62,7 @@ int main(){
                 //If no further targets, longer q gets preference
                 else{
                     if(currentfloor->up->length == 0 && currentfloor->down->length == 0){
-                        e->moving = 0;
+                        elevator_setdir_ext(e);
                     }
                     else if(currentfloor->up->length > currentfloor->down->length){
                         while(e->pnum < ELEVATOR_CAP && currentfloor->up->length > 0){
@@ -87,7 +84,7 @@ int main(){
             if(e->moving == 0){
                 Person* p;
                 if(currentfloor->up->length == 0 && currentfloor->down->length == 0){
-                    e->moving = 0;
+                    elevator_setdir_ext(e);
                 }
                 else if(currentfloor->up->length > currentfloor->down->length){
                     while(e->pnum < ELEVATOR_CAP && currentfloor->up->length > 0){
@@ -166,7 +163,7 @@ void showstate(floor* level[], elevator* el[]){
         floor_print(level[i]);
     }
     for(i = 0; i < ELEVATORNUM; i++){
-        printf("Elevator %d\n",i);
+        printf("\nElevator %d\n",i);
         elevator_print(el[i]);
     }
 }
@@ -174,13 +171,17 @@ void showstate(floor* level[], elevator* el[]){
 void set_external_tasks(floor* f, elevator* elev[], int fnum){
     if(f->up->length > 0 || f->down->length > 0){
         int already_set = 0;
+        int has_elev = 0;
         int i;
         for(i = 0; i < ELEVATORNUM; i++){
             if(elevator_hasdest(elev[i],fnum) ){
                 already_set = 1;
             }
+            if(elev[i]->location == fnum){
+                has_elev = 1;
+            }
         }
-        if(!already_set){
+        if(!already_set && !has_elev){
             int choice = random() % ELEVATORNUM;
             elev[choice]->ext_dest[fnum] = 1;
         }
