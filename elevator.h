@@ -15,7 +15,6 @@ struct elevator_{
     //int free;
     int dest[FLOORNUM];
     int ext_dest[FLOORNUM];
-    int delay_done;
 }
 
 elevator* elevator_new();
