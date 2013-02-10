@@ -14,6 +14,7 @@ struct elevator_{
     int moving;
     //int free;
     int dest[FLOORNUM];
+    int ext_dest[FLOORNUM];
     int delay_done;
 }
 

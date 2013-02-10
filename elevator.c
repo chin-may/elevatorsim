@@ -14,6 +14,7 @@ elevator* elevator_new(){
     ret->delay_done = 0;
     for(i = 0; i< FLOORNUM; i++){
         ret->dest[i] = 0;
+        ret->ext_dest[i] = 0;
     }
     return ret;
 }
