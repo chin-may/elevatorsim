@@ -15,7 +15,7 @@ int add_new_entrants(floor* gr, int currid);
 int main(){
     floor* level[FLOORNUM];
     int i;
-    int currid = 1;
+    int currid = 0;
     for(i = 0; i < FLOORNUM; i++){
         level[i] = floor_new();
     }
@@ -23,7 +23,7 @@ int main(){
     for(i = 0; i < ELEVATORNUM; i++){
         elev[i] = elevator_new();
     }
-    srand(time(NULL));
+    //srand(time(NULL));
 
     while(1){
         currid = add_new_entrants(level[0], currid);
@@ -33,8 +33,8 @@ int main(){
         }
         for(i = 0; i < ELEVATORNUM; i++){
             elevator* e = elev[i];
-            floor* currentfloor = level[ e->location ];
             elevator_move(e);
+            floor* currentfloor = level[ e->location ];
             if(e->moving != 0 && elevator_atdest(e)){ 
                 elevator_pause(e,random() % (MAX_WAIT - 2) + 2);
                 // Clear target
@@ -106,6 +106,8 @@ int main(){
             }
         }
         showstate(level, elev);
+        getc(stdin);
+        printf("----------------------------------------------------------------------\n");
     }
     return 0;
 }
@@ -159,9 +161,11 @@ void update_floor(floor* f, Queue* q){
 void showstate(floor* level[], elevator* el[]){
     int i;
     for(i = 0; i< FLOORNUM; i++){
+        printf("Floor %d\n",i);
         floor_print(level[i]);
     }
     for(i = 0; i < ELEVATORNUM; i++){
+        printf("Elevator %d\n",i);
         elevator_print(el[i]);
     }
 }
