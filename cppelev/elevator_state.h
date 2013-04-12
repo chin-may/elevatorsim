@@ -30,7 +30,7 @@ class elevator_state: public state{
 elevator_state::elevator_state(){
     currid = 0;
     for(int i = 0; i < FLOORNUM; i++){
-        level[i] = new floor;
+        level[i] = new floor(i);
     }
     for(int i = 0; i < ELEVATORNUM; i++){
         elev[i] = new elevator;

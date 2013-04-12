@@ -12,7 +12,7 @@ class floor{
     Queue* down;
     Person* members[FLOOR_CAP];
     int memnum;
-    floor();
+    floor(int num);
     void print();
     int enter(Person* p);
 };

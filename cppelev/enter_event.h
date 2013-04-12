@@ -15,7 +15,7 @@ class enter_event: public event{
         elevator *e = st->elev[elevid];
         floor *currentfloor = st->level[st->elev[elevid]->location];
         Person *p;
-        if(e->moving != 0 && e->just_stopped){ //FIXME atdest false
+        if(e->moving != 0 && e->just_stopped){
             e->just_stopped = false;
             if(e->hasfurther()){
                 if(e->moving > 0){

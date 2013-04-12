@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cstdlib>
 #include "elevator.h"
 #include "consts.h"
 #include "queue.h"
@@ -157,6 +158,7 @@ int elevator::atdest(){
 int elevator::hasdest(int d){
     if(d>= 0 && d< FLOORNUM)
         return dest[d] || ext_dest[d];
+    else return -1;
 }
 
 int elevator::hasfurther(){
