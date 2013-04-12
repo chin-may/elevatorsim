@@ -11,5 +11,6 @@ Event:
     Show state (Should these really be events, or should it be handled by 
     the Scheduler?)
     Elevator move
-    New entrants
+/   New entrants 
+    elevator enter
 
