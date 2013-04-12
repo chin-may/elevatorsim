@@ -1,9 +1,9 @@
 #include "scheduler.h"
 
-void scheduler::run(state system){
+void scheduler::run(){
     while(true){
         event *e = events.front();
         events.pop_front();
-        e->happen();
+        e->happen(system, events);
     }
 }

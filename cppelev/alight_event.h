@@ -10,7 +10,8 @@ class alight_event::event{
     }
     void happen(elevator_state *st){
         elevator *e = st->elev[elevid];
-        Queue q= e->leave();
+        floor *f = st->level[e->location];
+        Queue *q= e->leave();
         if(e->location > 0){
             Person* p = 0;
             int success;
@@ -24,5 +25,6 @@ class alight_event::event{
 
         }
     }
+};
 
 #endif

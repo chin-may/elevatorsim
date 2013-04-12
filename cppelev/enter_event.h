@@ -3,9 +3,12 @@
 
 #include "event.h"
 class enter_event::event{
-    int id;
+    int elevid;
+    enter_event(int id){
+        elevid = id;
+    }
     void happen(elevator_state *st){
-        elevator e = st->elev[id];
+        elevator e = st->elev[elevid];
         if(e->moving != 0 && elevator_atdest(e)){ 
             if(e->hasfurther()){
                 if(e->moving > 0){
