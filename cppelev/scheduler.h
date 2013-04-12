@@ -3,12 +3,14 @@
 
 #include "event.h"
 #include "state.h"
+#include <list>
 using namespace std;
 
 class scheduler{
-    list<event> *events;
+    public:
+    list<event*> *events;
     state *system;
-    void run(state *system);
+    void run();
     scheduler(state *st);
 };
 

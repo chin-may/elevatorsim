@@ -5,6 +5,7 @@
 #include "new_entry_event.h"
 #include "enter_event.h"
 #include "move_event.h"
+#include "line_event.h"
 
 void initialize(elevator_state *st, scheduler *sch);
 
@@ -17,12 +18,12 @@ int main(){
 }
 
 void initialize(elevator_state *st, scheduler *sch){
-    st->events->push_back(new new_entry_event);
+    sch->events->push_back(new new_entry_event);
     for(int i = 0; i<FLOORNUM; i++){
-        st->events->push_back(new line_event(i));
+        sch->events->push_back(new line_event(i));
     }
     for(int i = 0; i<ELEVATORNUM; i++){
-        st->events->push_back(new enter_event(i));
-        st->events->push_back(new move_event(i));
+        sch->events->push_back(new enter_event(i));
+        sch->events->push_back(new move_event(i));
     }
 }

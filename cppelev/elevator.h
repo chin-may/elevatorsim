@@ -29,8 +29,12 @@ class elevator{
         int isfree();
 
         void setdir();
+        void setdir_ext();
 
         void setdest();
+
+        int hasdest(int d);
+        int atdest();
 
         void enter(Person* p);
 

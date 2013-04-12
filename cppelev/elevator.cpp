@@ -1,11 +1,10 @@
-#include <stdlib>
 #include <cstdio>
 #include "elevator.h"
 #include "consts.h"
 #include "queue.h"
 #include "Person.h"
 
-elevator(){
+elevator::elevator(){
     int i;
     for(i = 0; i < ELEVATOR_CAP; i++){
         passengers[i] = 0;
@@ -20,7 +19,7 @@ elevator(){
     just_stopped = false;
 }
 
-void move(){
+void elevator::move(){
     if(delay){
         delay--;
     }
@@ -31,17 +30,17 @@ void move(){
 
 
 
-void pause( int time){
+void elevator::pause( int time){
     delay = time;
     dest[location] = 0;
     ext_dest[location] = 0;
     //int i;
 }
 
-int isfree(){
+int elevator::isfree(){
     int i;
     for(i = 0; i < FLOORNUM; i++){
-        if(elevator_hasdest(e,i) != 0){
+        if(hasdest(i) != 0){
             return 0;
         }
     }
@@ -49,10 +48,10 @@ int isfree(){
 }
 
 
-void setdir(){
+void elevator::setdir(){
     int i;
     int has_up = 0, has_down = 0;
-    for(i = 0; i < CAP; i++){
+    for(i = 0; i < ELEVATOR_CAP; i++){
         if(passengers[i] != NULL){
             if(passengers[i]->dest > location){
                 has_up = 1;
@@ -79,7 +78,7 @@ void setdir(){
 }
 
 
-void setdir_ext(){
+void elevator::setdir_ext(){
     int i;
     int has_up = 0, has_down = 0;
     i = location + 1;
@@ -108,7 +107,7 @@ void setdir_ext(){
 }
 
 
-void setdest(){
+void elevator::setdest(){
     int i;
     for(i = 0; i < FLOORNUM; i++){
         dest[i] = 0;
@@ -121,7 +120,7 @@ void setdest(){
 }
 
 
-void enter(Person* p){
+void elevator::enter(Person* p){
     if(pnum == ELEVATOR_CAP){
         perror("Elevator overload");
         exit(1);
@@ -135,7 +134,7 @@ void enter(Person* p){
 }
 
 
-Queue* leave(){
+Queue* elevator::leave(){
     int i;
     Queue* q = new Queue;
     for(i = 0; i < ELEVATOR_CAP; i++){
@@ -151,16 +150,16 @@ Queue* leave(){
     return q;
 }
 
-int atdest(){
+int elevator::atdest(){
     return hasdest(location);
 }
 
-int hasdest(int d){
+int elevator::hasdest(int d){
     if(d>= 0 && d< FLOORNUM)
         return dest[d] || ext_dest[d];
 }
 
-int hasfurther(){
+int elevator::hasfurther(){
     int ret = 0;
     int i;
     if(moving > 0){
@@ -182,7 +181,7 @@ int hasfurther(){
     return 0;
 }
 
-void print(){
+void elevator::print(){
     printf("Elevator loc:%d\n", location);
     if(delay > 0){
         printf("Delay: %d\n", delay);

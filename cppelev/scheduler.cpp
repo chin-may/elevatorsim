@@ -3,14 +3,14 @@
 
 void scheduler::run(){
     while(true){
-        event *e = events.front();
-        events.pop_front();
-        e->happen(system, events);
-        st->show();
+        event *ev = events->front();
+        events->pop_front();
+        ev->happen(system, events);
+        system->show();
     }
 }
 
 scheduler::scheduler(state *st){
-    events = new list<event>;
+    events = new list<event*>;
     system = st;
 }

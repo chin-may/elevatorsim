@@ -3,15 +3,20 @@
 
 #include "event.h"
 #include "consts.h"
-class enter_event::event{
+#include "Person.h"
+class enter_event: public event{
+    public:
     int elevid;
     enter_event(int id){
         elevid = id;
     }
-    void happen(elevator_state *st){
-        elevator e = st->elev[elevid];
-        if(e->moving != 0 && just_stopped){ //FIXME atdest false
-            just_stopped = false;
+    void happen(state *st_,list<event*> *events){
+        elevator_state *st = (elevator_state*) st_;
+        elevator *e = st->elev[elevid];
+        floor *currentfloor = st->level[st->elev[elevid]->location];
+        Person *p;
+        if(e->moving != 0 && e->just_stopped){ //FIXME atdest false
+            e->just_stopped = false;
             if(e->hasfurther()){
                 if(e->moving > 0){
                     while(e->pnum < ELEVATOR_CAP && 
@@ -79,6 +84,6 @@ class enter_event::event{
         }
     }
 
-}
+};
 
 #endif

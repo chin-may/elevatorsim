@@ -5,8 +5,9 @@
 #include "elevator.h"
 #include "state.h"
 #include "consts.h"
+#include <cstdio>
 
-class elevator_state::state{
+class elevator_state: public state{
     public:
     int currid; //Number of people the system has seen till now
     floor* level[FLOORNUM];

@@ -3,6 +3,7 @@
 
 
 class Person{
+    public:
     int id;
     int dest;
     Person(int id);
