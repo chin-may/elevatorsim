@@ -1,5 +1,6 @@
 #include "scheduler.h"
 #include "event.h"
+#include "state.h"
 
 void scheduler::run(){
     while(true){

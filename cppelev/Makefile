@@ -10,7 +10,7 @@ all: main
 main: main.o scheduler.o queue.o elevator.o floor.o Person.o
 	g++ $(LDFLAGS) $^ -o $@
 
-main.o: main.cpp state.h elevator_state.h consts.h new_entry_event.h enter_event.h move_event.h
+main.o: main.cpp state.h elevator_state.h consts.h new_entry_event.h enter_event.h move_event.h scheduler.h line_event.h
 	g++ -c $(CFLAGS) $< -o $@
 
 scheduler.o: scheduler.cpp scheduler.h event.h state.h

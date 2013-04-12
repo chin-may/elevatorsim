@@ -16,7 +16,6 @@ class line_event: public event{
         int i;
         int chance;
         int dest;
-        if(floorid == 0) printf("Error line event on ground floor\n");
         for(i = 0; i < FLOOR_CAP; i++){
             if(f->members[i] != NULL){
                 chance = random() % 4;
