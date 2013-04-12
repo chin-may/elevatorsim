@@ -1,5 +1,5 @@
-#ifndef ENTER_EVENT_H
-#define ENTER_EVENT_H
+#ifndef MOVE_EVENT_H
+#define MOVE_EVENT_H
 
 #include "event.h"
 

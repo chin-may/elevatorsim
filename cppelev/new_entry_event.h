@@ -1,5 +1,5 @@
-#ifndef ENTER_EVENT_H
-#define ENTER_EVENT_H
+#ifndef NEW_ENTRY_EVENT_H
+#define NEW_ENTRY_EVENT_H
 
 #include "event.h"
 class new_entry_event::event{

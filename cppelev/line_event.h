@@ -1,9 +1,9 @@
-#ifndef ENTER_EVENT_H
-#define ENTER_EVENT_H
+#ifndef LINE_EVENT_H
+#define LINE_EVENT_H
 
 #include "event.h"
 
-class alight_event::event{
+class line_event::event{
     int floorid;
     line_event(int id){
         floorid = id;

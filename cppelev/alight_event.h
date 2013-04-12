@@ -1,5 +1,5 @@
-#ifndef ENTER_EVENT_H
-#define ENTER_EVENT_H
+#ifndef ALIGHT_EVENT_H
+#define ALIGHT_EVENT_H
 
 #include "event.h"
 
