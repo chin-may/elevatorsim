@@ -11,18 +11,21 @@ class alight_event::event{
     void happen(elevator_state *st){
         elevator *e = st->elev[elevid];
         floor *f = st->level[e->location];
-        Queue *q= e->leave();
-        if(e->location > 0){
-            Person* p = 0;
-            int success;
-            while(p = q->deque()){
-                success = f->enter(p);
-                if(!success){
-                    p->dest = 0;
-                    f->down->enque(p);
+        if(e->moving != 0 && e->atdest()){
+            just_stopped = true;
+            Queue *q= e->leave();
+            if(e->location > 0){
+                Person* p = 0;
+                int success;
+                while(p = q->deque()){
+                    success = f->enter(p);
+                    if(!success){
+                        p->dest = 0;
+                        f->down->enque(p);
+                    }
                 }
-            }
 
+            }
         }
     }
 };

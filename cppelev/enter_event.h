@@ -2,6 +2,7 @@
 #define ENTER_EVENT_H
 
 #include "event.h"
+#include "consts.h"
 class enter_event::event{
     int elevid;
     enter_event(int id){
@@ -9,7 +10,8 @@ class enter_event::event{
     }
     void happen(elevator_state *st){
         elevator e = st->elev[elevid];
-        if(e->moving != 0 && elevator_atdest(e)){ 
+        if(e->moving != 0 && just_stopped){ //FIXME atdest false
+            just_stopped = false;
             if(e->hasfurther()){
                 if(e->moving > 0){
                     while(e->pnum < ELEVATOR_CAP && 

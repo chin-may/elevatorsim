@@ -6,10 +6,10 @@
 using namespace std;
 
 class scheduler{
-    list<Event> *events;
+    list<event> *events;
     state *system;
     void run(state *system);
-    void initialize(state *system);
+    scheduler(state *st);
 };
 
 #endif

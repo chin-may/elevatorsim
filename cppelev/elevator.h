@@ -17,6 +17,7 @@ class elevator{
         //int free;
         int dest[FLOORNUM];
         int ext_dest[FLOORNUM];
+        bool just_stopped;
         elevator();
 
         void move();
