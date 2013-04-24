@@ -16,10 +16,5 @@ void move_event::happen(state *st_, list<event*> *events){
         e->pause(random() % (MAX_WAIT - 2) + 2); //Also clears target
         e->just_stopped = true;
     }
-    alight_event *ae = new alight_event(elevid);
-    enter_event *ee = new enter_event(elevid);
-    move_event *me = new move_event(elevid);
-    events->push_back(ae);
-    events->push_back(ee);
-    events->push_back(me);
+    st->notify(events, this, 0);
 }

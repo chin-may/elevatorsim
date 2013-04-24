@@ -46,5 +46,5 @@ void line_event::happen(state *st_, list<event*> *events) {
                 st->elev[choice]->ext_dest[floorid] = 1;
             }
         }
-        events->push_back(new line_event(floorid));
+        st->notify(events, this, 1);
     }

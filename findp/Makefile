@@ -39,7 +39,8 @@ line_event.o: line_event.cpp line_event.h event.h consts.h elevator_state.h
 enter_event.o: enter_event.cpp enter_event.h event.h consts.h Person.h elevator_state.h
 	g++ -c $(CFLAGS) $< -o $@
 
-elevator_state.o: elevator_state.cpp floor.h elevator.h state.h consts.h elevator_state.h
+elevator_state.o: elevator_state.cpp floor.h elevator.h state.h consts.h elevator_state.h\
+	observer.h
 	g++ -c $(CFLAGS) $< -o $@
 
 main.o: main.cpp state.h elevator_state.h consts.h new_entry_event.h enter_event.h move_event.h scheduler.h line_event.h

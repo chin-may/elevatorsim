@@ -34,5 +34,5 @@ void new_entry_event::happen(state *st_, list<event*> *events) {
             st->elev[choice]->ext_dest[0] = 1;
         }
     }
-    events->push_back(new new_entry_event);
+    st->notify(events, this, 2);
 }

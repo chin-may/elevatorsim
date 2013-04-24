@@ -6,6 +6,8 @@
 #include "state.h"
 #include "consts.h"
 #include "elevator_state.h"
+#include "observer.h"
+#include <list>
 
 class elevator_state: public state{
     public:
@@ -13,6 +15,9 @@ class elevator_state: public state{
     floor* level[FLOORNUM];
     elevator* elev[ELEVATORNUM];
     elevator_state();
+    std::list<observer*> *observers;
     void show();
+    void notify(std::list<event*> *events, event* prev,
+            int type);
 };
 #endif

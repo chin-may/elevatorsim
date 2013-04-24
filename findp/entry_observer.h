@@ -1,5 +1,5 @@
-#ifndef LINEOBSERVER_H
-#define LINEOBSERVER_H
+#ifndef ENTRYOBSERVER_H
+#define ENTRYOBSERVER_H
 
 #include "event.h"
 #include "state.h"
