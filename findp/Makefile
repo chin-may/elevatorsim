@@ -8,8 +8,21 @@ LDFLAGS = -lm
 all: main
 
 main: main.o scheduler.o queue.o elevator.o floor.o Person.o elevator_state.o\
-	enter_event.o line_event.o new_entry_event.o alight_event.o move_event.o
+	enter_event.o line_event.o new_entry_event.o alight_event.o move_event.o\
+	move_observer.o line_observer.o entry_observer.o
 	g++ $(LDFLAGS) $^ -o $@
+
+move_observer.o: move_observer.cpp move_observer.h event.h alight_event.h \
+	enter_event.h move_event.h state.h elevator_state.h observer.h
+	g++ -c $(CFLAGS) $< -o $@
+
+line_observer.o: line_observer.cpp line_observer.h elevator_state.h line_event.h\
+	event.h observer.h
+	g++ -c $(CFLAGS) $< -o $@
+
+entry_observer.o: entry_observer.cpp entry_observer.h event.h state.h observer.h\
+	new_entry_event.h
+	g++ -c $(CFLAGS) $< -o $@
 
 alight_event.o: alight_event.cpp alight_event.h event.h elevator_state.h
 	g++ -c $(CFLAGS) $< -o $@
