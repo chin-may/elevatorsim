@@ -1,0 +1,16 @@
+System state
+    2 Elevators
+    n floors
+
+Scheduler
+    eventqueue
+    event.happen()
+
+Event:
+    Pause
+    Show state (Should these really be events, or should it be handled by 
+    the Scheduler?)
+    Elevator move
+/   New entrants 
+    elevator enter
+
